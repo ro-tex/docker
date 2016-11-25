@@ -1,0 +1,18 @@
+Docker notes:
+
+docker-machine create --driver=virtualbox vbox
+docker-machine ssh vbox
+
+https://docs.docker.com/machine/get-started/
+
+docker ps -a
+docker rm <container_id>
+
+docker build -t docker_hub_username/image_name dir_with_dockerfile
+docker push docker_hub_username/image_name
+
+docker run -p 8080:80 --name stat inovakov/stat # 8080 is the machine port, 80 is the docker port
+
+docker rm $(docker ps -a -q) # rm all containers
+
+sudo docker exec -i -t bcac02110704 /bin/bash # get a shell in the container
