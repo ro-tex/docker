@@ -13,6 +13,22 @@ docker push docker_hub_username/image_name
 
 docker run -p 8080:80 --name stat inovakov/stat # 8080 is the machine port, 80 is the docker port
 
-docker rm $(docker ps -a -q) # rm all containers
+# the -it flag + the /bin/bash command at the end enables us to attach to an actual shell
+docker run -d -it inovakov/stat /bin/bash
 
 sudo docker exec -i -t bcac02110704 /bin/bash # get a shell in the container
+
+Exit a container without killing it: Ctrl + P + Q
+
+https://www.calazan.com/docker-cleanup-commands/
+# Kill all running containers:
+docker kill $(docker ps -q)
+
+# Delete all stopped containers (including data-only containers):
+docker rm $(docker ps -a -q)
+
+# Delete all 'untagged/dangling' (<none>) images:
+docker rmi $(docker images -q -f dangling=true)
+
+# Delete ALL images:
+docker rmi $(docker images -q)
