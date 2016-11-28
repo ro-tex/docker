@@ -1,9 +1,10 @@
 Docker notes:
 
-docker-machine create --driver=virtualbox vbox
+# https://docs.docker.com/machine/get-started/
+docker-machine create --driver=virtualbox docker-vbox
 docker-machine ssh vbox
 
-https://docs.docker.com/machine/get-started/
+The images of docker-machine are under ~/.docker/machine/...
 
 docker ps -a
 docker rm <container_id>
