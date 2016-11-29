@@ -1,8 +1,11 @@
 Docker notes:
 
 # https://docs.docker.com/machine/get-started/
-docker-machine create --driver=virtualbox docker-vbox
-docker-machine ssh vbox
+# create a new virtualbox docker machine called "default":
+docker-machine create --driver=virtualbox default
+# set up the environment to use that docker machine (all docker commands will go to it):
+eval $(docker-machine env default)
+docker-machine ssh default
 
 The images of docker-machine are under ~/.docker/machine/...
 
