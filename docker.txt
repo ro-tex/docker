@@ -9,6 +9,8 @@ docker-machine ssh default
 
 The images of docker-machine are under ~/.docker/machine/...
 
+Multiprocess containers -> phusion/baseimage
+
 docker ps -a
 docker rm <container_id>
 
@@ -36,3 +38,18 @@ docker rmi $(docker images -q -f dangling=true)
 
 # Delete ALL images:
 docker rmi $(docker images -q)
+
+docker top <id/name>
+docker logs <id/name>
+
+# Get a ton of info about the container:
+docker inspect
+
+# Get a container's PID:
+docker inspect <id/name> | grep Pid
+
+# Start a shell to a shell-less container (you can "exit" this):
+nsenter -m -u -n -p -i -t PID # deprecated
+docker-enter <id/name>             # deprecated
+docker exec -it <id/name> /bin/bash
+
