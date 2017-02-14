@@ -53,3 +53,7 @@ nsenter -m -u -n -p -i -t PID # deprecated
 docker-enter <id/name>             # deprecated
 docker exec -it <id/name> /bin/bash
 
+# Build a container tagged as "inovakov/helloworld" with version 0.1 from the current directory (the last dot)
+docker build -t inovakov/helloworld:0.1 .
+
+

@@ -1,0 +1,11 @@
+termcapinfo xterm* ti@:te@
+screen -t bash
+screen -t rails
+screen -t ember
+screen -t shell
+screen -t shell
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}%{C}Screen: %{c}%{= kG}[%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{C} %m-%d %{W}%c %{g}]'
+startup_message off
+defscrollback 2048
