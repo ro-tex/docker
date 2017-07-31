@@ -14,6 +14,8 @@ Multiprocess containers -> phusion/baseimage
 docker ps -a
 docker rm <container_id>
 
+Ctrl + P + Q - detach from a container without stopping it
+
 docker build -t docker_hub_username/image_name dir_with_dockerfile
 docker push docker_hub_username/image_name
 
@@ -55,5 +57,3 @@ docker exec -it <id/name> /bin/bash
 
 # Build a container tagged as "inovakov/helloworld" with version 0.1 from the current directory (the last dot)
 docker build -t inovakov/helloworld:0.1 .
-
-
