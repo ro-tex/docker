@@ -57,3 +57,12 @@ docker exec -it <id/name> /bin/bash
 
 # Build a container tagged as "inovakov/helloworld" with version 0.1 from the current directory (the last dot)
 docker build -t inovakov/helloworld:0.1 .
+
+# Store the current state of the image (the writable top layer) as a new image:
+docker commit <image id> <new image name>
+
+# Export the image we committed above to a tar file that we can transfer between machines:
+docker save -o /tmp/fridge.tar <new image name>
+
+# Import the image we exported above:
+docker load -i /tmp/fridge.tar
