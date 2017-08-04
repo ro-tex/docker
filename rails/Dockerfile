@@ -5,6 +5,22 @@ FROM ruby:2.4-alpine
 
 MAINTAINER inovakov@gmail.com
 
-RUN apk update && apk upgrade && apk add bash && apk add make && apk add musl-dev && apk add gcc
+# musl-dev is required for building nokogiri
+# g++ is required for therubyracer
 
+RUN apk update && apk upgrade && apk add make && apk add musl-dev && apk add g++ \
+    && apk add git && apk add postgresql-dev && apk add nodejs
+
+# Dev only:
+RUN apk add bash && apk add nano
+
+# Prod only:
 RUN gem update && gem cleanup
+
+RUN git clone https://github.com/ro-tex/bookmarks.git /home/bookmarks && cd /home/bookmarks && bundle install
+
+# TODO Find out how to sutomatically start a service with the container startup.
+# ENTRYPOINT cd /home/bookmarks && rails s -e=production -d
+
+# build command:    docker build --rm -t inovakov/ruby:0.01 /vagrant/rails
+# run command:      docker run -p 3000:3000 --name rails -it inovakov/ruby:0.01 /bin/bash

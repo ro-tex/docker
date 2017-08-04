@@ -1,8 +1,10 @@
 Docker notes:
 
 # https://docs.docker.com/machine/get-started/
+
 # create a new virtualbox docker machine called "default":
 docker-machine create --driver=virtualbox default
+
 # set up the environment to use that docker machine (all docker commands will go to it):
 eval $(docker-machine env default)
 docker-machine ssh default
@@ -11,24 +13,25 @@ The images of docker-machine are under ~/.docker/machine/...
 
 Multiprocess containers -> phusion/baseimage
 
-docker ps -a
-docker rm <container_id>
+docker ps -a                # list all images that have run recently
+docker rm <container_id>    # remove a container
+docker rmi <image_id>       # remove an image
 
 Ctrl + P + Q - detach from a container without stopping it
 
-docker build -t docker_hub_username/image_name dir_with_dockerfile
+docker build -t docker_hub_username/image_name dir_with_dockerfile  # add --rm to remove intermediate images
 docker push docker_hub_username/image_name
 
-docker run -p 8080:80 --name stat inovakov/stat # 8080 is the machine port, 80 is the docker port
+docker run -p 8080:80 --name hello inovakov/hello  # 8080 is the machine port, 80 is the docker port, hello is the image name
 
-# the -it flag + the /bin/bash command at the end enables us to attach to an actual shell
-docker run -d -it inovakov/stat /bin/bash
+# the -it flag + the /bin/bash command at the end enables us to attach to an actual shell (-d is for daemon)
+docker run -d -it inovakov/hello /bin/bash
 
 sudo docker exec -i -t bcac02110704 /bin/bash # get a shell in the container
 
-Exit a container without killing it: Ctrl + P + Q
 
-https://www.calazan.com/docker-cleanup-commands/
+# https://www.calazan.com/docker-cleanup-commands/
+
 # Kill all running containers:
 docker kill $(docker ps -q)
 
@@ -45,20 +48,21 @@ docker top <id/name>
 docker logs <id/name>
 
 # Get a ton of info about the container:
-docker inspect
+docker inspect <id/name>
 
 # Get a container's PID:
 docker inspect <id/name> | grep Pid
 
-# Start a shell to a shell-less container (you can "exit" this):
-nsenter -m -u -n -p -i -t PID # deprecated
-docker-enter <id/name>             # deprecated
+# Start a shell to a shell-less container (you can "exit" this without killing the container):
+nsenter -m -u -n -p -i -t PID       # deprecated
+docker-enter <id/name>              # deprecated
 docker exec -it <id/name> /bin/bash
 
-# Build a container tagged as "inovakov/helloworld" with version 0.1 from the current directory (the last dot)
-docker build -t inovakov/helloworld:0.1 .
 
-# Store the current state of the image (the writable top layer) as a new image:
+# Build a container tagged as "inovakov/helloworld" with version 0.1 from the current directory (the last dot)
+docker build --rm -t inovakov/helloworld:0.1 .
+
+# Store the current state of the container/image (the writable top layer) as a new image:
 docker commit <image id> <new image name>
 
 # Export the image we committed above to a tar file that we can transfer between machines:
