@@ -9,15 +9,11 @@ MAINTAINER inovakov@gmail.com
 # g++ is required for therubyracer
 
 RUN apk update && apk upgrade && apk add make && apk add musl-dev && apk add g++ \
-    && apk add git && apk add postgresql-dev && apk add nodejs
+    && apk add git && apk add postgresql-dev && apk add nodejs \
+    && apk add bash && apk add nano \   # DEV
+    && gem update && gem cleanup        # PROD
 
-# Dev only:
-RUN apk add bash && apk add nano
-
-# Prod only:
-RUN gem update && gem cleanup
-
-RUN git clone https://github.com/ro-tex/bookmarks.git /home/bookmarks && cd /home/bookmarks && bundle install
+# RUN git clone https://github.com/ro-tex/bookmarks.git /home/bookmarks && cd /home/bookmarks && bundle install
 
 # TODO Find out how to sutomatically start a service with the container startup.
 # ENTRYPOINT cd /home/bookmarks && rails s -e=production -d
