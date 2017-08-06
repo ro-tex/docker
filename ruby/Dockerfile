@@ -13,10 +13,12 @@ RUN apk update && apk upgrade && apk add make && apk add musl-dev && apk add g++
     && apk add bash && apk add nano \
     && gem update && gem cleanup
 
-# RUN git clone https://github.com/ro-tex/bookmarks.git /home/bookmarks && cd /home/bookmarks && bundle install
+RUN git clone https://github.com/ro-tex/bookmarks.git /home/bookmarks && cd /home/bookmarks && bundle install
 
-# TODO Find out how to sutomatically start a service with the container startup.
+# TODO Find out how to automatically start a service with the container startup.
 # ENTRYPOINT cd /home/bookmarks && rails s -e=production -d
+# CMD ["cd /home/bookmarks && rails s -e=production"]
 
-# build command:    docker build --rm -t inovakov/ruby:0.01 /vagrant/ruby
-# run command:      docker run -p 3000:3000 --name rails -it inovakov/ruby:0.01 /bin/bash
+# build command:    docker build --rm -t inovakov/ruby /vagrant/ruby
+# run command:      docker run -it -p 3000:3000 --name bms inovakov/ruby /bin/bash
+# semi-auto:        docker run -d -p 3000:3000 --name bms inovakov/ruby /bin/bash -c "cd /home/bookmarks && rails s -e=production"
