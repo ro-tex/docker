@@ -44,6 +44,9 @@ docker rmi $(docker images -q -f dangling=true)
 # Delete ALL images:
 docker rmi $(docker images -q)
 
+# Delete everything:
+docker system prune -a
+
 docker top <id/name>
 docker logs <id/name>
 
